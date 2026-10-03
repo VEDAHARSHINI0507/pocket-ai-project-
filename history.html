@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+Recommendation History - PocketSmart AI
+{% endblock %}
+
+
+{% block content %}
+
+<section class="history-page">
+
+    <div class="history-header">
+
+        <p class="hero-tag">
+            YOUR HISTORY
+        </p>
+
+        <h1>
+            Recommendation History
+        </h1>
+
+        <p>
+            View the recommendations you generated
+            with PocketSmart AI.
+        </p>
+
+    </div>
+
+
+    <div class="history-container">
+
+        {% if recommendations %}
+
+            {% for recommendation in recommendations %}
+
+                <div class="history-card">
+
+                    <div class="history-card-header">
+
+                        <div>
+
+                            <span class="history-type">
+                                {{ recommendation.planner_type | upper }}
+                            </span>
+
+                            <h2>
+                                {{ recommendation.planner_type | title }}
+                                Recommendation
+                            </h2>
+
+                        </div>
+
+                        <span class="history-date">
+                            {{ recommendation.created_at }}
+                        </span>
+
+                    </div>
+
+
+                    {% if recommendation.budget %}
+
+                    <p class="history-budget">
+
+                        <strong>
+                            Budget:
+                        </strong>
+
+                        {{ recommendation.budget }}
+
+                    </p>
+
+                    {% endif %}
+
+
+                    <div class="history-result">
+
+                        {{ recommendation.result_data }}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ✦
+                </div>
+
+                <h2>
+                    No recommendations yet
+                </h2>
+
+                <p>
+                    Your generated recommendations will
+                    appear here.
+                </p>
+
+                <a
+                    href="/dashboard"
+                    class="btn primary-btn"
+                >
+                    Go to Dashboard
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

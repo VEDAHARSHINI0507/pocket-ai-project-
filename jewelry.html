@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}
+Jewelry Planner - PocketSmart AI
+{% endblock %}
+
+
+{% block content %}
+
+<section class="planner-page">
+
+    <div class="planner-header">
+
+        <p class="hero-tag">
+            JEWELRY PLANNER
+        </p>
+
+        <h1>
+            Find jewelry that fits your style
+        </h1>
+
+        <p>
+            Tell PocketSmart AI about your occasion,
+            outfit and preferences to receive personalized
+            jewelry recommendations.
+        </p>
+
+    </div>
+
+
+    <div class="planner-form-card">
+
+        <form
+            action="/generate-jewelry"
+            method="post"
+            class="planner-form"
+        >
+
+            <div class="form-group">
+
+                <label for="budget">
+                    Budget
+                </label>
+
+                <input
+                    type="text"
+                    id="budget"
+                    name="budget"
+                    placeholder="Example: ₹10,000"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="occasion">
+                    Occasion
+                </label>
+
+                <select
+                    id="occasion"
+                    name="occasion"
+                    required
+                >
+
+                    <option value="">
+                        Select an occasion
+                    </option>
+
+                    <option value="Casual">
+                        Casual
+                    </option>
+
+                    <option value="Wedding">
+                        Wedding
+                    </option>
+
+                    <option value="Party">
+                        Party
+                    </option>
+
+                    <option value="Festival">
+                        Festival
+                    </option>
+
+                    <option value="Formal">
+                        Formal
+                    </option>
+
+                    <option value="Date">
+                        Date
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="outfit">
+                    Outfit Description
+                </label>
+
+                <textarea
+                    id="outfit"
+                    name="outfit"
+                    rows="4"
+                    placeholder="Example: Black saree with gold embroidery"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="metal">
+                    Preferred Metal
+                </label>
+
+                <select
+                    id="metal"
+                    name="metal"
+                    required
+                >
+
+                    <option value="">
+                        Select a metal
+                    </option>
+
+                    <option value="Gold">
+                        Gold
+                    </option>
+
+                    <option value="Silver">
+                        Silver
+                    </option>
+
+                    <option value="Rose Gold">
+                        Rose Gold
+                    </option>
+
+                    <option value="Platinum">
+                        Platinum
+                    </option>
+
+                    <option value="Any">
+                        Any
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn primary-btn full-width"
+            >
+                Generate AI Recommendations
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

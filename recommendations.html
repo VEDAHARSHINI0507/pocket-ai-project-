@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Recommendations - PocketSmart AI
+{% endblock %}
+
+{% block content %}
+
+<!-- Include Marked.js to parse Markdown into clean HTML -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<style>
+    /* Overall Page & Header Layout */
+    .recommendations-page {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .recommendations-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: #ffffff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+
+    .recommendations-header h1 {
+        font-size: 2.25rem;
+        color: #0f172a;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .recommendations-header p {
+        color: #64748b;
+        font-size: 1rem;
+    }
+
+    /* Container Card Styling */
+    .recommendation-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+
+    /* Styled Recommendations Output */
+    .recommendation-content h1,
+    .recommendation-content h2,
+    .recommendation-content h3 {
+        color: #1e293b;
+        font-weight: 700;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Category Section Boxes */
+    .recommendation-content h3 {
+        font-size: 1.2rem;
+        background: #ffffff;
+        padding: 12px 18px;
+        border-left: 5px solid #6366f1;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        margin-top: 2rem;
+    }
+
+    .recommendation-content hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, #e2e8f0, #cbd5e1, #e2e8f0);
+        margin: 2rem 0;
+    }
+
+    .recommendation-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 1rem 0;
+    }
+
+    .recommendation-content li {
+        position: relative;
+        padding-left: 1.75rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.6;
+        color: #334155;
+    }
+
+    .recommendation-content li::before {
+        content: "✦";
+        position: absolute;
+        left: 0.25rem;
+        top: 0;
+        color: #8b5cf6;
+        font-weight: bold;
+    }
+
+    /* Markdown Table Styling with Color Accents */
+    .recommendation-content table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 1.5rem 0;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .recommendation-content th {
+        background: #eef2ff;
+        color: #3730a3;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        padding: 14px 16px;
+        border-bottom: 2px solid #e0e7ff;
+        text-align: left;
+    }
+
+    .recommendation-content td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #f1f5f9;
+        color: #475569;
+        font-size: 0.95rem;
+    }
+
+    .recommendation-content tr:last-child td {
+        border-bottom: none;
+    }
+
+    .recommendation-content tr:hover td {
+        background-color: #f8fafc;
+    }
+
+    /* Interactive Shopping Link Buttons */
+    .recommendation-content table a,
+    .recommendation-content a {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 12px;
+        margin: 3px;
+        background: #4f46e5;
+        color: #ffffff !important;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.825rem;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+    }
+
+    .recommendation-content table a:hover,
+    .recommendation-content a:hover {
+        background: #4338ca;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+    }
+
+    /* Action Buttons Navigation */
+    .recommendation-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .primary-btn {
+        background: #6366f1;
+        color: #ffffff;
+    }
+
+    .primary-btn:hover {
+        background: #4f46e5;
+    }
+
+    .secondary-btn {
+        background: #ffffff;
+        color: #475569;
+        border: 1px solid #cbd5e1;
+    }
+
+    .secondary-btn:hover {
+        background: #f1f5f9;
+    }
+
+    /* Empty State Container */
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+    }
+
+    .empty-icon {
+        font-size: 2.5rem;
+        color: #8b5cf6;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<section class="recommendations-page">
+
+    <div class="recommendations-header">
+        <p class="hero-tag">POCKETSMART AI</p>
+        <h1>Your AI Recommendations</h1>
+        <p>Your personalized budget allocation and shopping guide.</p>
+    </div>
+
+    <div class="recommendation-card">
+        {% if recommendation %}
+            <!-- Hidden raw container prevents JS syntax errors -->
+            <div id="raw-recommendation" style="display: none;">{{ recommendation }}</div>
+            
+            <!-- Styled output container -->
+            <div id="formatted-recommendation" class="recommendation-content"></div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">✦</div>
+                <h2>No recommendation yet</h2>
+                <p>Choose one of the planners below to generate your personalized AI recommendations.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="recommendation-actions">
+        <a href="/home" class="btn primary-btn">Home Decor</a>
+        <a href="/party" class="btn primary-btn">Party Planner</a>
+        <a href="/jewelry" class="btn primary-btn">Jewelry Planner</a>
+        <a href="/history" class="btn secondary-btn">View History</a>
+    </div>
+
+</section>
+
+{% if recommendation %}
+<script>
+    // Get raw data and run through Marked.js
+    const rawData = document.getElementById('raw-recommendation').textContent;
+    document.getElementById('formatted-recommendation').innerHTML = marked.parse(rawData);
+</script>
+{% endif %}
+
+{% endblock %}

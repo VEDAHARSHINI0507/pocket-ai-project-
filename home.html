@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home Decor Planner - PocketSmart AI
+{% endblock %}
+
+
+{% block content %}
+
+<section class="planner-page">
+
+    <div class="planner-header">
+
+        <p class="hero-tag">
+            HOME DECOR
+        </p>
+
+        <h1>
+            Design your perfect space
+        </h1>
+
+        <p>
+            Tell PocketSmart AI about your room and
+            preferences, and get personalized decor ideas
+            based on your budget.
+        </p>
+
+    </div>
+
+
+    <div class="planner-form-card">
+
+        <form
+            action="/generate-home"
+            method="post"
+            class="planner-form"
+        >
+
+            <div class="form-group">
+
+                <label for="budget">
+                    Budget
+                </label>
+
+                <input
+                    type="text"
+                    id="budget"
+                    name="budget"
+                    placeholder="Example: ₹20,000"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="room">
+                    Room
+                </label>
+
+                <select
+                    id="room"
+                    name="room"
+                    required
+                >
+
+                    <option value="">
+                        Select a room
+                    </option>
+
+                    <option value="Bedroom">
+                        Bedroom
+                    </option>
+
+                    <option value="Living Room">
+                        Living Room
+                    </option>
+
+                    <option value="Kitchen">
+                        Kitchen
+                    </option>
+
+                    <option value="Study Room">
+                        Study Room
+                    </option>
+
+                    <option value="Dining Room">
+                        Dining Room
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="style">
+                    Preferred Style
+                </label>
+
+                <select
+                    id="style"
+                    name="style"
+                    required
+                >
+
+                    <option value="">
+                        Select a style
+                    </option>
+
+                    <option value="Modern">
+                        Modern
+                    </option>
+
+                    <option value="Minimalist">
+                        Minimalist
+                    </option>
+
+                    <option value="Traditional">
+                        Traditional
+                    </option>
+
+                    <option value="Bohemian">
+                        Bohemian
+                    </option>
+
+                    <option value="Industrial">
+                        Industrial
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="colors">
+                    Preferred Colors
+                </label>
+
+                <input
+                    type="text"
+                    id="colors"
+                    name="colors"
+                    placeholder="Example: White, beige and brown"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn primary-btn full-width"
+            >
+                Generate AI Recommendations
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

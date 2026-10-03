@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard - PocketSmart AI
+{% endblock %}
+
+
+{% block content %}
+
+<section class="dashboard-header">
+
+    <div>
+
+        <p class="hero-tag">
+            YOUR DASHBOARD
+        </p>
+
+        <h1>
+            Welcome back,
+            {{ request.session.get("user_name", "User") }}!
+        </h1>
+
+        <p>
+            Choose what you would like PocketSmart AI
+            to help you plan today.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="planner-section">
+
+    <div class="planner-grid">
+
+
+        <!-- Home Planner -->
+
+        <div class="planner-card">
+
+            <div class="planner-icon">
+                🏠
+            </div>
+
+            <h2>
+                Home Decor
+            </h2>
+
+            <p>
+                Get AI-powered ideas for decorating
+                your room according to your style,
+                preferred colors and budget.
+            </p>
+
+            <a
+                href="/home"
+                class="btn primary-btn"
+            >
+                Start Home Planner
+            </a>
+
+        </div>
+
+
+        <!-- Party Planner -->
+
+        <div class="planner-card">
+
+            <div class="planner-icon">
+                🎉
+            </div>
+
+            <h2>
+                Party Planner
+            </h2>
+
+            <p>
+                Plan your party with AI-generated
+                ideas for decorations, food,
+                activities and themes.
+            </p>
+
+            <a
+                href="/party"
+                class="btn primary-btn"
+            >
+                Start Party Planner
+            </a>
+
+        </div>
+
+
+        <!-- Jewelry Planner -->
+
+        <div class="planner-card">
+
+            <div class="planner-icon">
+                💎
+            </div>
+
+            <h2>
+                Jewelry Planner
+            </h2>
+
+            <p>
+                Find jewelry suggestions that match
+                your outfit, occasion, preferred metal
+                and budget.
+            </p>
+
+            <a
+                href="/jewelry"
+                class="btn primary-btn"
+            >
+                Start Jewelry Planner
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="dashboard-links">
+
+    <div class="dashboard-link-card">
+
+        <h3>
+            Recommendation History
+        </h3>
+
+        <p>
+            View your previous AI-generated
+            recommendations.
+        </p>
+
+        <a href="/history">
+            View History →
+        </a>
+
+    </div>
+
+
+    <div class="dashboard-link-card">
+
+        <h3>
+            What is PocketSmart AI?
+        </h3>
+
+        <p>
+            Learn how our AI-powered recommendation
+            system can help you make smarter choices.
+        </p>
+
+        <a href="/testimonials">
+            Learn More →
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}
